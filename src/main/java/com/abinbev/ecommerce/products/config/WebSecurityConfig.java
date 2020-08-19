@@ -1,4 +1,4 @@
-package com.gustavorubin.abinbevecommerce.config;
+package com.abinbev.ecommerce.products.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -13,7 +13,8 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import com.gustavorubin.abinbevecommerce.web.security.WebAuthenticationEntryPoint;
+
+import com.abinbev.ecommerce.products.web.security.WebAuthenticationEntryPoint;
 
 @Configuration
 @EnableWebSecurity

@@ -1,4 +1,4 @@
-package com.gustavorubin.abinbevecommerce.web.security;
+package com.abinbev.ecommerce.products.web.security;
 
 import java.io.IOException;
 

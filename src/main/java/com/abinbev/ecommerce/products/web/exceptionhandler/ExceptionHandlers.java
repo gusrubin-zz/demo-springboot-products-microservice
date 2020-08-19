@@ -1,4 +1,4 @@
-package com.gustavorubin.abinbevecommerce.web.exceptionhandler;
+package com.abinbev.ecommerce.products.web.exceptionhandler;
 
 import java.util.ArrayList;
 import java.util.List;

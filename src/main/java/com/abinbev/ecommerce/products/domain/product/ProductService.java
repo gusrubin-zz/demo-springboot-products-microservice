@@ -1,10 +1,10 @@
-package com.gustavorubin.abinbevecommerce.domain.product;
+package com.abinbev.ecommerce.products.domain.product;
 
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.gustavorubin.abinbevecommerce.domain.ServiceModel;
+import com.abinbev.ecommerce.products.domain.ServiceModel;
 
 @Service
 public class ProductService implements ServiceModel<Product> {

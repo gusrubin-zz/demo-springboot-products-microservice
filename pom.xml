@@ -9,11 +9,19 @@
 		<version>2.3.0.RELEASE</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.gustavorubin</groupId>
-	<artifactId>abinbev-ecommerce</artifactId>
+	<groupId>com.abinbev.ecommerce</groupId>
+	<artifactId>abinbev-ecommerce-products-microservice</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>abinbev-ecommerce</name>
-	<description>Demo Spring Boot project for ABinBev challenge</description>
+	<name>abinbev-ecommerce-products-microservice</name>
+	<description>Demo Spring Boot project for ABinBev products microservice challenge</description>
+
+	<developers>
+		<developer>
+			<id>gusrubin</id>
+			<name>Gustavo Rubin</name>
+			<email>gusrubin@gmail.com</email>
+		</developer>
+	</developers>
 
 	<properties>
 		<java.version>11</java.version>

@@ -1,4 +1,4 @@
-package com.gustavorubin.abinbevecommerce.web.product;
+package com.abinbev.ecommerce.products.web.product;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.gustavorubin.abinbevecommerce.domain.product.Product;
-import com.gustavorubin.abinbevecommerce.domain.product.ProductService;
+import com.abinbev.ecommerce.products.domain.product.Product;
+import com.abinbev.ecommerce.products.domain.product.ProductService;
 
 @RestController
 @RequestMapping("/products")

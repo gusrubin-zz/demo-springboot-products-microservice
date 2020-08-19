@@ -1,4 +1,4 @@
-package com.gustavorubin.abinbevecommerce.domain.product;
+package com.abinbev.ecommerce.products.domain.product;
 
 import java.math.BigDecimal;
 

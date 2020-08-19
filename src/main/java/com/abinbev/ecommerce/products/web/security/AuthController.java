@@ -1,4 +1,4 @@
-package com.gustavorubin.abinbevecommerce.web.security;
+package com.abinbev.ecommerce.products.web.security;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

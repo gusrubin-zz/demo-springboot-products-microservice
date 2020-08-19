@@ -1,10 +1,10 @@
-package com.gustavorubin.abinbevecommerce;
+package com.abinbev.ecommerce.products;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class AbinbevEcommerceApplicationTests {
+class AbinbevEcommerceProductsApplicationTests {
 
 	@Test
 	void contextLoads() {

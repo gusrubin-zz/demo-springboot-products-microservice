@@ -1,4 +1,4 @@
-package com.gustavorubin.abinbevecommerce.web.security;
+package com.abinbev.ecommerce.products.web.security;
 
 import java.util.Date;
 
@@ -17,9 +17,9 @@ import io.jsonwebtoken.UnsupportedJwtException;
 @Component
 public class JwtProvider {
 
-	@Value("${abinbev-ecommerce.default-jwt-secret}")
+	@Value("${abinbev-ecommerce-products.default-jwt-secret}")
 	private String jwtSecret;
-	@Value("${abinbev-ecommerce.default-jwt-expiration-seconds}")
+	@Value("${abinbev-ecommerce-products.default-jwt-expiration-seconds}")
 	private Long jwtExpirationSeconds;
 
 	public String generateJwt(Authentication authentication) {

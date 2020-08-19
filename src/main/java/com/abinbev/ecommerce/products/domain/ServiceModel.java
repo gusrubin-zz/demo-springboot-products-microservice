@@ -1,4 +1,4 @@
-package com.gustavorubin.abinbevecommerce.domain;
+package com.abinbev.ecommerce.products.domain;
 
 import java.util.List;
 
