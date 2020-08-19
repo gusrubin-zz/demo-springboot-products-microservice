@@ -4,11 +4,16 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import com.abinbev.ecommerce.products.domain.ServiceModel;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class ProductService implements ServiceModel<Product> {
 
@@ -24,22 +29,32 @@ public class ProductService implements ServiceModel<Product> {
 		return productRepository.findAll();
 	}
 
+	public List<Product> findAll(@Nullable Boolean orderedByName) {
+		if (orderedByName != null && Boolean.TRUE.equals(orderedByName)) {
+			return productRepository.findAll(Sort.by(Sort.Direction.ASC, "name"));
+		} else {
+			return productRepository.findAll();
+		}
+	}
+
 	@Override
 	public Product findById(String id) {
 		Optional<Product> productResult = productRepository.findById(id);
-		if (productResult.isPresent()) {
-			return productResult.get();
+		if (productResult.isEmpty()) {
+			log.error("Trying to find product with id not registered");
+			throw new IllegalStateException("Product id not registered");
 		}
-		return null;
+		return productResult.get();
 	}
 
 	@Override
 	public Product findByName(String name) {
 		Optional<Product> productResult = productRepository.findByName(name);
-		if (productResult.isPresent()) {
-			return productResult.get();
+		if (productResult.isEmpty()) {
+			log.error("Trying to find product with name not registered");
+			throw new IllegalStateException("Product name not registered");
 		}
-		return null;
+		return productResult.get();
 	}
 
 	@Override
@@ -47,7 +62,9 @@ public class ProductService implements ServiceModel<Product> {
 		if (!StringUtils.hasText(product.getName())) {
 			throw new IllegalArgumentException("Product name is missing");
 		}
-		if (findByName(product.getName()) != null) {
+		Optional<Product> productResult = productRepository.findByName(product.getName());
+		if (productResult.isPresent()) {
+			log.error("Trying to create product with name already registered");
 			throw new IllegalStateException("Product name already registered");
 		}
 
@@ -60,10 +77,12 @@ public class ProductService implements ServiceModel<Product> {
 
 	@Override
 	public Product update(Product updatedProduct) {
-		Product product = findById(updatedProduct.getId());
-		if (product == null) {
+		Optional<Product> productResult = productRepository.findById(updatedProduct.getId());
+		if (productResult.isEmpty()) {
+			log.error("Trying to update product with id not registered");
 			throw new IllegalStateException("Product not registered");
 		}
+		Product product = productResult.get();
 
 		if (!StringUtils.hasText(updatedProduct.getName())) {
 			throw new IllegalArgumentException("Product name is missing");
@@ -80,11 +99,13 @@ public class ProductService implements ServiceModel<Product> {
 
 	@Override
 	public void delete(String id) {
-		Product product = findById(id);
-		if (product == null) {
+		Optional<Product> productResult = productRepository.findById(id);
+		if (productResult.isEmpty()) {
+			log.error("Trying to delete product not registered");
 			throw new IllegalStateException("Product not registered");
 		}
-		productRepository.delete(product);
+
+		productRepository.delete(productResult.get());
 	}
 
 }

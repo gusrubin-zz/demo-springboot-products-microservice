@@ -75,10 +75,11 @@ class ProductServiceTests {
 	}
 
 	@Test
-	void findByIdMustReturnNullWithInvalidId() {
-		Product returnedProduct = productService.findById("1");
+	void findByIdWithInvalidIdMustThrowException() {
+		Optional<Product> productResult = Optional.of(generateProduct("1", "Skol"));
+		Mockito.when(productRepository.findById("1")).thenReturn(productResult);
 
-		Assertions.assertNull(returnedProduct);
+		Assertions.assertThrows(IllegalStateException.class, () -> productService.findById("2"));
 	}
 
 	/*
@@ -96,13 +97,11 @@ class ProductServiceTests {
 	}
 
 	@Test
-	void findByNameMustReturnNullWithInvalidName() {
+	void findByNameWithInvalidNameMustThrowException() {
 		Optional<Product> productResult = Optional.of(generateProduct("1", "Skol"));
 		Mockito.when(productRepository.findByName("Skol")).thenReturn(productResult);
 
-		Product returnedProduct = productService.findByName("Bohemia");
-
-		Assertions.assertNull(returnedProduct);
+		Assertions.assertThrows(IllegalStateException.class, () -> productService.findByName("Bohemia"));
 	}
 
 	/*

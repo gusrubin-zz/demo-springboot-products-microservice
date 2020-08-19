@@ -31,14 +31,15 @@ public class ProductController {
 	}
 
 	@GetMapping
-	public ResponseEntity<List<Product>> getAllProducts(@RequestParam(required = false) String productName) {
+	public ResponseEntity<List<Product>> getAllProducts(@RequestParam(required = false) String productName,
+			@RequestParam(required = false) String orderedByName) {
 
 		List<Product> responseBody = new ArrayList<>();
 
 		if (StringUtils.hasText(productName)) {
 			responseBody.add(productService.findByName(productName));
 		} else {
-			responseBody.addAll(productService.findAll());
+			responseBody.addAll(productService.findAll(Boolean.valueOf(orderedByName)));
 		}
 
 		return ResponseEntity.ok(responseBody);
@@ -62,8 +63,8 @@ public class ProductController {
 	}
 
 	@PutMapping("/{productId}")
-	public ResponseEntity<Product> postProduct(@RequestBody Product requestBody) {
-		
+	public ResponseEntity<Product> putProduct(@RequestBody Product requestBody) {
+
 		// Here we could do field validations before call service
 
 		return ResponseEntity.ok(productService.update(requestBody));
