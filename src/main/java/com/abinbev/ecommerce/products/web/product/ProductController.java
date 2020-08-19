@@ -30,8 +30,8 @@ public class ProductController {
 		this.productService = productService;
 	}
 
-	@GetMapping()
-	public ResponseEntity<List<Product>> getAllProducts(@RequestParam String productName) {
+	@GetMapping
+	public ResponseEntity<List<Product>> getAllProducts(@RequestParam(required = false) String productName) {
 
 		List<Product> responseBody = new ArrayList<>();
 
@@ -50,10 +50,10 @@ public class ProductController {
 		return ResponseEntity.ok(productService.findById(productId));
 	}
 
-	@PostMapping()
+	@PostMapping
 	public ResponseEntity<Product> postProduct(@RequestBody Product requestBody, UriComponentsBuilder uriBuilder) {
 
-		// We could do validations here before call the service
+		// Here we could do field validations before call the service
 
 		String productId = productService.create(requestBody);
 
@@ -63,6 +63,8 @@ public class ProductController {
 
 	@PutMapping("/{productId}")
 	public ResponseEntity<Product> postProduct(@RequestBody Product requestBody) {
+		
+		// Here we could do field validations before call service
 
 		return ResponseEntity.ok(productService.update(requestBody));
 	}
