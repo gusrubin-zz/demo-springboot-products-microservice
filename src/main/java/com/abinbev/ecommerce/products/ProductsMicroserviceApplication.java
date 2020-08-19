@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class AbinbevEcommerceProductsApplication {
+public class ProductsMicroserviceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(AbinbevEcommerceProductsApplication.class, args);
+		SpringApplication.run(ProductsMicroserviceApplication.class, args);
 	}
 
 }
