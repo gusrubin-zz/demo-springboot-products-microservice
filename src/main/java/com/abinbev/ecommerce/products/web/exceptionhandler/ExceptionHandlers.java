@@ -17,12 +17,12 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @ControllerAdvice
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class ExceptionHandlers {
-
-//	@Autowired
-//	MasterLogStoreService log;
 
 //	@ExceptionHandler(OAuth2Exception.class)
 //	protected ResponseEntity<Object> handleOAuth2Exception(OAuth2Exception oauth2Exception) {
@@ -32,13 +32,13 @@ public class ExceptionHandlers {
 
 	@ExceptionHandler(AuthenticationException.class)
 	protected ResponseEntity<Object> handleAuthenticationException(AuthenticationException authenticationException) {
-//		log.error("[handleAuthenticationException] " + authenticationException.getMessage());
+		log.error("[handleAuthenticationException] " + authenticationException.getMessage());
 		return buildResponseEntity(new ResponseError(HttpStatus.UNAUTHORIZED, authenticationException.getMessage()));
 	}
 
 	@ExceptionHandler(IllegalArgumentException.class)
 	protected ResponseEntity<Object> handleIllegalArgumentException(IllegalArgumentException illegalArgumentException) {
-//		log.error("[handleIllegalArgumentException] " + illegalArgumentException.getMessage());
+		log.error("[handleIllegalArgumentException] " + illegalArgumentException.getMessage());
 		return buildResponseEntity(
 				new ResponseError(HttpStatus.PRECONDITION_FAILED, illegalArgumentException.getMessage()));
 	}
@@ -46,7 +46,7 @@ public class ExceptionHandlers {
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	protected ResponseEntity<Object> handleMethodArgumentNotValidException(
 			MethodArgumentNotValidException methodArgumentNotValidException) {
-//		log.error("[handleMethodArgumentNotValidException] " + methodArgumentNotValidException.getMessage());
+		log.error("[handleMethodArgumentNotValidException] " + methodArgumentNotValidException.getMessage());
 		BindingResult result = methodArgumentNotValidException.getBindingResult();
 		List<FieldError> fieldErrors = result.getFieldErrors();
 		List<String> errorMessages = new ArrayList<>();
@@ -61,29 +61,29 @@ public class ExceptionHandlers {
 	@ExceptionHandler(HttpMessageNotReadableException.class)
 	protected ResponseEntity<Object> handleHttpMessageNotReadableException(
 			HttpMessageNotReadableException httpMessageNotReadableException) {
-//		log.error("[handleHttpMessageNotReadableException] " + httpMessageNotReadableException.getMessage());
+		log.error("[handleHttpMessageNotReadableException] " + httpMessageNotReadableException.getMessage());
 		return buildResponseEntity(
 				new ResponseError(HttpStatus.PRECONDITION_FAILED, "Wrong JSON format or field type"));
 	}
 
 	@ExceptionHandler(IllegalStateException.class)
 	protected ResponseEntity<Object> handleIllegalStateException(IllegalStateException illegalStateException) {
-//		log.error("[handleIllegalStateException] " + illegalStateException.getMessage());
+		log.error("[handleIllegalStateException] " + illegalStateException.getMessage());
 		return buildResponseEntity(
 				new ResponseError(HttpStatus.UNPROCESSABLE_ENTITY, illegalStateException.getMessage()));
 	}
 
 	@ExceptionHandler(DataAccessException.class)
 	protected ResponseEntity<Object> handleDataAccessException(DataAccessException dataAccessException) {
-//		log.error("[handleDataAccessException] " + dataAccessException.getMessage());
+		log.error("[handleDataAccessException] " + dataAccessException.getMessage());
 		return buildResponseEntity(new ResponseError(HttpStatus.SERVICE_UNAVAILABLE, dataAccessException.getMessage()));
 	}
 
-	@ExceptionHandler(Exception.class)
-	protected ResponseEntity<Object> handleException(Exception exception) {
+//	@ExceptionHandler(Exception.class)
+//	protected ResponseEntity<Object> handleException(Exception exception) {
 //		log.error("[handleException] " + exception.getMessage());
-		return buildResponseEntity(new ResponseError(HttpStatus.INTERNAL_SERVER_ERROR, exception.getMessage()));
-	}
+//		return buildResponseEntity(new ResponseError(HttpStatus.INTERNAL_SERVER_ERROR, exception.getMessage()));
+//	}
 
 	private ResponseEntity<Object> buildResponseEntity(ResponseError responseError) {
 		return new ResponseEntity<>(responseError, responseError.getStatus());

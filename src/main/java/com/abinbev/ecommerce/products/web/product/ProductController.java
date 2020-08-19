@@ -63,11 +63,12 @@ public class ProductController {
 	}
 
 	@PutMapping("/{productId}")
-	public ResponseEntity<Product> putProduct(@RequestBody Product requestBody) {
+	public ResponseEntity<Product> putProduct(@PathVariable("productId") String productId,
+			@RequestBody Product requestBody) {
 
 		// Here we could do field validations before call service
 
-		return ResponseEntity.ok(productService.update(requestBody));
+		return ResponseEntity.ok(productService.update(productId, requestBody));
 	}
 
 	@DeleteMapping("/{productId}")

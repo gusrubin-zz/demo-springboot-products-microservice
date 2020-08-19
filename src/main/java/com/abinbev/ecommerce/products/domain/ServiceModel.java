@@ -12,7 +12,7 @@ public interface ServiceModel<T> {
 
 	String create(T t);
 
-	T update(T t);
+	T update(String id, T t);
 
 	void delete(String id);
 

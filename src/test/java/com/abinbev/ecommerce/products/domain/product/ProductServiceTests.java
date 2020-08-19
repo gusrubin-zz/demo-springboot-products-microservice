@@ -148,7 +148,7 @@ class ProductServiceTests {
 		Product newProduct = generateProduct("1", "Bohemia");
 		Mockito.when(productRepository.save(Mockito.any(Product.class))).thenReturn(newProduct);
 
-		Product updatedProduct = productService.update(newProduct);
+		Product updatedProduct = productService.update("1", newProduct);
 
 		Assertions.assertEquals(newProduct.getName(), updatedProduct.getName());
 	}
@@ -159,7 +159,7 @@ class ProductServiceTests {
 
 		Product newProduct = generateProduct("1", "Bohemia");
 
-		Assertions.assertThrows(IllegalStateException.class, () -> productService.update(newProduct));
+		Assertions.assertThrows(IllegalStateException.class, () -> productService.update("1", newProduct));
 	}
 
 	@Test
@@ -170,7 +170,7 @@ class ProductServiceTests {
 
 		Product newProduct = generateProduct("1", null);
 
-		Assertions.assertThrows(IllegalArgumentException.class, () -> productService.update(newProduct));
+		Assertions.assertThrows(IllegalArgumentException.class, () -> productService.update("1", newProduct));
 	}
 
 	/*

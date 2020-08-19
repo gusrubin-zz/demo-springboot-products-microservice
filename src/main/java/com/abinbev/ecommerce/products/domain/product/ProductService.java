@@ -60,6 +60,7 @@ public class ProductService implements ServiceModel<Product> {
 	@Override
 	public String create(Product product) {
 		if (!StringUtils.hasText(product.getName())) {
+			log.error("Trying to create product without product name");
 			throw new IllegalArgumentException("Product name is missing");
 		}
 		Optional<Product> productResult = productRepository.findByName(product.getName());
@@ -76,8 +77,8 @@ public class ProductService implements ServiceModel<Product> {
 	}
 
 	@Override
-	public Product update(Product updatedProduct) {
-		Optional<Product> productResult = productRepository.findById(updatedProduct.getId());
+	public Product update(String id, Product updatedProduct) {
+		Optional<Product> productResult = productRepository.findById(id);
 		if (productResult.isEmpty()) {
 			log.error("Trying to update product with id not registered");
 			throw new IllegalStateException("Product not registered");
@@ -85,6 +86,7 @@ public class ProductService implements ServiceModel<Product> {
 		Product product = productResult.get();
 
 		if (!StringUtils.hasText(updatedProduct.getName())) {
+			log.error("Trying to update product without product name");
 			throw new IllegalArgumentException("Product name is missing");
 		}
 
