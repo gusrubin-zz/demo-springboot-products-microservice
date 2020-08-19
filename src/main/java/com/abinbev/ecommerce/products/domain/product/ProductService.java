@@ -65,6 +65,10 @@ public class ProductService implements ServiceModel<Product> {
 			throw new IllegalStateException("Product not registered");
 		}
 
+		if (!StringUtils.hasText(updatedProduct.getName())) {
+			throw new IllegalArgumentException("Product name is missing");
+		}
+
 		if (!updatedProduct.getName().equals(product.getName())) {
 			product.setName(updatedProduct.getName());
 		}
