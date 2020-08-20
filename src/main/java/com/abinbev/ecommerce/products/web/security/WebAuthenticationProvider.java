@@ -36,20 +36,22 @@ public class WebAuthenticationProvider implements AuthenticationProvider {
 		String username = authentication.getName();
 		String password = authentication.getCredentials().toString();
 
-		log.info("[authentication]=(username=" + username + ", password=" + password + ")");
+		log.info("[authentication] username=" + username + ")");
 
 		UserDetails user = authUserDetailsService.loadUserByUsername(username);
 
 		if (user == null) {
+			log.error("[authentication] Invalid Login and/or Password");
 			throw new UsernameNotFoundException("Invalid Login and/or Password");
 		}
 
 		if (!user.isEnabled()) {
+			log.error("[authentication] The user is disabled");
 			throw new DisabledException("The user is disabled");
 		}
 
 		if (!passwordEncoder.matches(password, user.getPassword())) {
-
+			log.error("[authentication] Invalid Login and/or Password");
 			throw new UsernameNotFoundException("Invalid Login and/or Password");
 		}
 

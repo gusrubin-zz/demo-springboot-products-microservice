@@ -3,7 +3,6 @@ package com.abinbev.ecommerce.products.web.exceptionhandler;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.dao.DataAccessException;
@@ -23,12 +22,6 @@ import lombok.extern.slf4j.Slf4j;
 @ControllerAdvice
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class ExceptionHandlers {
-
-//	@ExceptionHandler(OAuth2Exception.class)
-//	protected ResponseEntity<Object> handleOAuth2Exception(OAuth2Exception oauth2Exception) {
-////		log.error("[handleOAuth2Exception] " + oauth2Exception.getMessage());
-//		return buildResponseEntity(new ResponseError(HttpStatus.UNAUTHORIZED, oauth2Exception.getMessage()));
-//	}
 
 	@ExceptionHandler(AuthenticationException.class)
 	protected ResponseEntity<Object> handleAuthenticationException(AuthenticationException authenticationException) {
@@ -79,11 +72,11 @@ public class ExceptionHandlers {
 		return buildResponseEntity(new ResponseError(HttpStatus.SERVICE_UNAVAILABLE, dataAccessException.getMessage()));
 	}
 
-//	@ExceptionHandler(Exception.class)
-//	protected ResponseEntity<Object> handleException(Exception exception) {
-//		log.error("[handleException] " + exception.getMessage());
-//		return buildResponseEntity(new ResponseError(HttpStatus.INTERNAL_SERVER_ERROR, exception.getMessage()));
-//	}
+	@ExceptionHandler(Exception.class)
+	protected ResponseEntity<Object> handleException(Exception exception) {
+		log.error("[handleException] " + exception.getMessage());
+		return buildResponseEntity(new ResponseError(HttpStatus.INTERNAL_SERVER_ERROR, exception.getMessage()));
+	}
 
 	private ResponseEntity<Object> buildResponseEntity(ResponseError responseError) {
 		return new ResponseEntity<>(responseError, responseError.getStatus());

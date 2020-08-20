@@ -9,9 +9,6 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
@@ -29,8 +26,6 @@ public class AuthController {
 	public ResponseEntity<Object> getJwt(@RequestHeader("Authorization") String authorizationHeader) {
 
 		BasicCredential basicCredential = webAuthenticationProvider.getBasicCredentialFromHeader(authorizationHeader);
-		log.info("[BasicCredential]=(username=" + basicCredential.getUsername() + ", password="
-				+ basicCredential.getPassword());
 
 		Authentication authentication = webAuthenticationProvider.authenticate(
 				new UsernamePasswordAuthenticationToken(basicCredential.getUsername(), basicCredential.getPassword()));

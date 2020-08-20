@@ -21,7 +21,7 @@ import com.abinbev.ecommerce.products.web.security.WebRequestFilter;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableGlobalMethodSecurity(securedEnabled = true, jsr250Enabled = true, prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	private final WebAuthenticationEntryPoint jwtAuthenticationEntryPoint;
@@ -70,19 +70,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 				.and().exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint)
 
-				.and().antMatcher("/users/login").httpBasic()
+				.and().authorizeRequests().antMatchers("/auth/login").permitAll().anyRequest().authenticated();
 
-				// .and().authorizeRequests().antMatchers("/resources/public").permitAll().anyRequest().authenticated();
-
-				.and().authorizeRequests().antMatchers("/products/*").permitAll().anyRequest().authenticated();
-//
-//		httpSecurity.addFilterBefore(authenticationManagerBean(), UsernamePasswordAuthenticationFilter.class);
+		httpSecurity.addFilterBefore(webRequestFilter, UsernamePasswordAuthenticationFilter.class);
 	}
-
-//	@Override
-//	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//		// cria uma conta default
-//		auth.inMemoryAuthentication().withUser("admin").password("password").roles("ADMIN");
-//	}
 
 }
