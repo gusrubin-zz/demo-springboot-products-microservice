@@ -16,15 +16,18 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Component
 public class WebRequestFilter extends OncePerRequestFilter {
 
-//	private final SystemUserDetailsService managerUserDetailsService;
+	private final AuthUserDetailsService authUserDetailsService;
 	private final JwtProvider jwtProvider;
 
 	@Autowired
-	public WebRequestFilter(JwtProvider jwtProvider) {
-//		this.managerUserDetailsService = managerUserDetailsService;
+	public WebRequestFilter(AuthUserDetailsService authUserDetailsService, JwtProvider jwtProvider) {
+		this.authUserDetailsService = authUserDetailsService;
 		this.jwtProvider = jwtProvider;
 	}
 
@@ -32,14 +35,14 @@ public class WebRequestFilter extends OncePerRequestFilter {
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
 			throws ServletException, IOException {
 		String jwt = getJwtFromRequest(request);
-//		log.debug("jwt=" + jwt);
-//		if (jwt != null && jwtProvider.validateJwt(jwt)) {
-//			UserDetails userDetails = managerUserDetailsService.loadUserByUsername(jwtProvider.getUsernameFromJwt(jwt));
-//			UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails,
-//					null, userDetails.getAuthorities());
-//			authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-//			SecurityContextHolder.getContext().setAuthentication(authentication);
-//		}
+		log.debug("jwt=" + jwt);
+		if (jwt != null && jwtProvider.validateJwt(jwt)) {
+			UserDetails userDetails = authUserDetailsService.loadUserByUsername(jwtProvider.getUsernameFromJwt(jwt));
+			UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails,
+					null, userDetails.getAuthorities());
+			authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+			SecurityContextHolder.getContext().setAuthentication(authentication);
+		}
 		chain.doFilter(request, response);
 
 	}
@@ -49,7 +52,7 @@ public class WebRequestFilter extends OncePerRequestFilter {
 		if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
 			return bearerToken.substring(7, bearerToken.length());
 		}
-//		log.debug("JWT Token does not begin with Bearer String");
+		log.debug("JWT Token does not begin with Bearer String");
 		return null;
 	}
 
