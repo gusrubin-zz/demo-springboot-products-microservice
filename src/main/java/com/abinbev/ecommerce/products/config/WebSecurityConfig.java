@@ -75,8 +75,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				// .and().authorizeRequests().antMatchers("/resources/public").permitAll().anyRequest().authenticated();
 
 				.and().authorizeRequests().antMatchers("/products/*").permitAll().anyRequest().authenticated();
-
-		httpSecurity.addFilterBefore(webRequestFilter, UsernamePasswordAuthenticationFilter.class);
+//
+//		httpSecurity.addFilterBefore(authenticationManagerBean(), UsernamePasswordAuthenticationFilter.class);
 	}
 
 //	@Override
