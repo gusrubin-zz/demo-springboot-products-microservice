@@ -1,4 +1,4 @@
-# Demo Spring Boot project for ABinBev products microservice challenge
+# Demo Spring Boot project for products microservice
 
 Author: Gustavo Rubin (gusrubin@gmail.com)
 
